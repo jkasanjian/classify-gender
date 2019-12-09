@@ -1,0 +1,30 @@
+TESTING WITH SGD
+
+max iteration testcase0: Train accuracy: 0.917700, Test accuracy: 0.915000
+max iteration testcase1: Train accuracy: 0.857100, Test accuracy: 0.854600
+max iteration testcase2: Train accuracy: 0.785650, Test accuracy: 0.779400
+max iteration testcase3: Train accuracy: 0.767150, Test accuracy: 0.762400
+learning rate testcase0: Train accuracy: 0.579850, Test accuracy: 0.579400
+learning rate testcase1: Train accuracy: 0.867400, Test accuracy: 0.862200
+learning rate testcase2: Train accuracy: 0.782900, Test accuracy: 0.775000
+
+avg train: 0.7939642857
+avg test: 0.7903928571
+
+
+
+TESTING LOGISTIC REGRESSION
+
+max iteration testcase0: Train accuracy: 0.931100, Test accuracy: 0.933400
+max iteration testcase1: Train accuracy: 0.938450, Test accuracy: 0.939400
+max iteration testcase2: Train accuracy: 0.939150, Test accuracy: 0.938400
+max iteration testcase3: Train accuracy: 0.940100, Test accuracy: 0.939600
+learning rate testcase0: Train accuracy: 0.938450, Test accuracy: 0.939400
+learning rate testcase1: Train accuracy: 0.939150, Test accuracy: 0.938400
+learning rate testcase2: Train accuracy: 0.939700, Test accuracy: 0.939200
+
+
+(0.933400 + 0.939400 + 0.938400 + 0.939600 + 0.939400 + 0.938400 + 0.939200)/7
+
+avg train: 0.9380142857
+avg test: 0.9382571429
