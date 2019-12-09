@@ -3,13 +3,16 @@ import matplotlib.pyplot as plt
 
 
 def main():
-    output_ImClass, output_alexnet = load_output()
+    output_imClass, output_alexnet, output_vgg = load_output()
 
-    t_l, t_a, v_l, v_a = extract_numbers(output_ImClass)
-    graph(t_l, t_a, v_l, v_a, '6 Layer CNN')
+    t_l, t_a, v_l, v_a = extract_numbers(output_imClass)
+    graph(t_l, t_a, v_l, v_a, '5 Layer CNN')
 
     t_l, t_a, v_l, v_a = extract_numbers(output_alexnet)
     graph(t_l, t_a, v_l, v_a, 'Alexnet')
+
+    t_l, t_a, v_l, v_a = extract_numbers(output_vgg)
+    graph(t_l, t_a, v_l, v_a, 'VGGNet')
 
 
 
@@ -24,7 +27,7 @@ def graph(t_l, t_a, v_l, v_a, name):
     plt.legend(['train', 'validation'], loc='upper left')
     plt.xlim([1, 74])
     plt.show()
-    # summarize history for loss
+
     plt.plot(t_l)
     plt.plot(v_l)
     name_l = name + ' Loss'
@@ -34,33 +37,30 @@ def graph(t_l, t_a, v_l, v_a, name):
     plt.legend(['train', 'validation'], loc='upper left')
     plt.xlim([1, 74])
     plt.show()
-
-    return 
-
-
+ 
 
 def extract_numbers(output):
     t_l = []
     t_a = []
     v_l = []
     v_a = []    
-    output += '12345'
+    output += '00000'
 
     count = 1
     for i in range(len(output)):
         if output[i] == ':':
+            num = float(output[i+2 : i+8])
             if count == 1:
-                t_l.append(float(output[i+2 : i+8]))
-                count += 1
+                t_l.append(num)
             elif count == 2:
-                t_a.append(float(output[i+2 : i+8]))
-                count += 1
+                t_a.append(num)
             elif count == 3:
-                v_l.append(float(output[i+2 : i+8]))
-                count += 1
+                v_l.append(num)
             elif count == 4:
-                v_a.append(float(output[i+2 : i+8]))
+                v_a.append(num)
                 count = 1
+                continue
+            count += 1
 
     return t_l, t_a, v_l, v_a
             
@@ -365,7 +365,159 @@ def load_output():
     19/19 [==============================] - 71s 4s/step - loss: 0.0903 - accuracy: 0.9624 - val_loss: 0.0909 - val_accuracy: 0.9648
     '''
 
-    return output_ImClass, output_alexnet
+
+    output_vgg = '''
+    52/52 [==============================] - 170s 3s/step - loss: 0.6930 - accuracy: 0.5176 - val_loss: 0.6927 - val_accuracy: 0.6604
+    Epoch 2/74
+    52/52 [==============================] - 162s 3s/step - loss: 0.6927 - accuracy: 0.5286 - val_loss: 0.6941 - val_accuracy: 0.4708
+    Epoch 3/74
+    52/52 [==============================] - 158s 3s/step - loss: 0.6925 - accuracy: 0.5661 - val_loss: 0.6922 - val_accuracy: 0.6187
+    Epoch 4/74
+    52/52 [==============================] - 158s 3s/step - loss: 0.6923 - accuracy: 0.5905 - val_loss: 0.6920 - val_accuracy: 0.6604
+    Epoch 5/74
+    52/52 [==============================] - 158s 3s/step - loss: 0.6921 - accuracy: 0.5669 - val_loss: 0.6906 - val_accuracy: 0.5292
+    Epoch 6/74
+    52/52 [==============================] - 158s 3s/step - loss: 0.6917 - accuracy: 0.5168 - val_loss: 0.6920 - val_accuracy: 0.5521
+    Epoch 7/74
+    52/52 [==============================] - 158s 3s/step - loss: 0.6916 - accuracy: 0.5992 - val_loss: 0.6913 - val_accuracy: 0.6667
+    Epoch 8/74
+    52/52 [==============================] - 156s 3s/step - loss: 0.6911 - accuracy: 0.5757 - val_loss: 0.6883 - val_accuracy: 0.5375
+    Epoch 9/74
+    52/52 [==============================] - 158s 3s/step - loss: 0.6908 - accuracy: 0.6194 - val_loss: 0.6914 - val_accuracy: 0.6292
+    Epoch 10/74
+    52/52 [==============================] - 156s 3s/step - loss: 0.6904 - accuracy: 0.6426 - val_loss: 0.6895 - val_accuracy: 0.6708
+    Epoch 11/74
+    52/52 [==============================] - 159s 3s/step - loss: 0.6898 - accuracy: 0.6296 - val_loss: 0.6875 - val_accuracy: 0.6071
+    Epoch 12/74
+    52/52 [==============================] - 158s 3s/step - loss: 0.6891 - accuracy: 0.6332 - val_loss: 0.6860 - val_accuracy: 0.6792
+    Epoch 13/74
+    52/52 [==============================] - 158s 3s/step - loss: 0.6877 - accuracy: 0.6440 - val_loss: 0.6845 - val_accuracy: 0.5688
+    Epoch 14/74
+    52/52 [==============================] - 158s 3s/step - loss: 0.6870 - accuracy: 0.6404 - val_loss: 0.6852 - val_accuracy: 0.6292
+    Epoch 15/74
+    52/52 [==============================] - 156s 3s/step - loss: 0.6844 - accuracy: 0.6574 - val_loss: 0.6864 - val_accuracy: 0.6542
+    Epoch 16/74
+    52/52 [==============================] - 158s 3s/step - loss: 0.6802 - accuracy: 0.6569 - val_loss: 0.6744 - val_accuracy: 0.6354
+    Epoch 17/74
+    52/52 [==============================] - 158s 3s/step - loss: 0.6712 - accuracy: 0.6492 - val_loss: 0.6519 - val_accuracy: 0.6500
+    Epoch 18/74
+    52/52 [==============================] - 156s 3s/step - loss: 0.6374 - accuracy: 0.6412 - val_loss: 0.6372 - val_accuracy: 0.6792
+    Epoch 19/74
+    52/52 [==============================] - 158s 3s/step - loss: 0.6109 - accuracy: 0.6593 - val_loss: 0.5746 - val_accuracy: 0.6708
+    Epoch 20/74
+    52/52 [==============================] - 158s 3s/step - loss: 0.5903 - accuracy: 0.6867 - val_loss: 0.5427 - val_accuracy: 0.7396
+    Epoch 21/74
+    52/52 [==============================] - 156s 3s/step - loss: 0.5764 - accuracy: 0.7004 - val_loss: 0.5699 - val_accuracy: 0.7021
+    Epoch 22/74
+    52/52 [==============================] - 160s 3s/step - loss: 0.5550 - accuracy: 0.7173 - val_loss: 0.5585 - val_accuracy: 0.7372
+    Epoch 23/74
+    52/52 [==============================] - 158s 3s/step - loss: 0.5463 - accuracy: 0.7232 - val_loss: 0.6411 - val_accuracy: 0.7229
+    Epoch 24/74
+    52/52 [==============================] - 158s 3s/step - loss: 0.5249 - accuracy: 0.7408 - val_loss: 0.5549 - val_accuracy: 0.7437
+    Epoch 25/74
+    52/52 [==============================] - 156s 3s/step - loss: 0.5249 - accuracy: 0.7428 - val_loss: 0.5830 - val_accuracy: 0.7208
+    Epoch 26/74
+    52/52 [==============================] - 158s 3s/step - loss: 0.5167 - accuracy: 0.7512 - val_loss: 0.5536 - val_accuracy: 0.7521
+    Epoch 27/74
+    52/52 [==============================] - 158s 3s/step - loss: 0.5192 - accuracy: 0.7466 - val_loss: 0.5067 - val_accuracy: 0.7708
+    Epoch 28/74
+    52/52 [==============================] - 158s 3s/step - loss: 0.5052 - accuracy: 0.7538 - val_loss: 0.4954 - val_accuracy: 0.7583
+    Epoch 29/74
+    52/52 [==============================] - 156s 3s/step - loss: 0.5060 - accuracy: 0.7596 - val_loss: 0.5066 - val_accuracy: 0.7812
+    Epoch 30/74
+    52/52 [==============================] - 158s 3s/step - loss: 0.5007 - accuracy: 0.7524 - val_loss: 0.4702 - val_accuracy: 0.7729
+    Epoch 31/74
+    52/52 [==============================] - 158s 3s/step - loss: 0.4771 - accuracy: 0.7740 - val_loss: 0.4271 - val_accuracy: 0.7812
+    Epoch 32/74
+    52/52 [==============================] - 158s 3s/step - loss: 0.4707 - accuracy: 0.7825 - val_loss: 0.3846 - val_accuracy: 0.7883
+    Epoch 33/74
+    52/52 [==============================] - 158s 3s/step - loss: 0.4760 - accuracy: 0.7738 - val_loss: 0.4355 - val_accuracy: 0.8188
+    Epoch 34/74
+    52/52 [==============================] - 158s 3s/step - loss: 0.4678 - accuracy: 0.7847 - val_loss: 0.5111 - val_accuracy: 0.7917
+    Epoch 35/74
+    52/52 [==============================] - 158s 3s/step - loss: 0.4572 - accuracy: 0.7827 - val_loss: 0.4513 - val_accuracy: 0.7667
+    Epoch 36/74
+    52/52 [==============================] - 156s 3s/step - loss: 0.4448 - accuracy: 0.7957 - val_loss: 0.4653 - val_accuracy: 0.7854
+    Epoch 37/74
+    52/52 [==============================] - 158s 3s/step - loss: 0.4486 - accuracy: 0.7997 - val_loss: 0.4021 - val_accuracy: 0.8062
+    Epoch 38/74
+    52/52 [==============================] - 158s 3s/step - loss: 0.4538 - accuracy: 0.7887 - val_loss: 0.4296 - val_accuracy: 0.8146
+    Epoch 39/74
+    52/52 [==============================] - 156s 3s/step - loss: 0.4410 - accuracy: 0.7892 - val_loss: 0.4338 - val_accuracy: 0.8146
+    Epoch 40/74
+    52/52 [==============================] - 158s 3s/step - loss: 0.4424 - accuracy: 0.7965 - val_loss: 0.4765 - val_accuracy: 0.7563
+    Epoch 41/74
+    52/52 [==============================] - 158s 3s/step - loss: 0.4339 - accuracy: 0.7995 - val_loss: 0.4788 - val_accuracy: 0.7896
+    Epoch 42/74
+    52/52 [==============================] - 158s 3s/step - loss: 0.4373 - accuracy: 0.8025 - val_loss: 0.5543 - val_accuracy: 0.7792
+    Epoch 43/74
+    52/52 [==============================] - 159s 3s/step - loss: 0.4513 - accuracy: 0.7857 - val_loss: 0.3335 - val_accuracy: 0.8367
+    Epoch 44/74
+    52/52 [==============================] - 157s 3s/step - loss: 0.4007 - accuracy: 0.8172 - val_loss: 0.4337 - val_accuracy: 0.7875
+    Epoch 45/74
+    52/52 [==============================] - 156s 3s/step - loss: 0.4172 - accuracy: 0.8079 - val_loss: 0.4021 - val_accuracy: 0.8167
+    Epoch 46/74
+    52/52 [==============================] - 158s 3s/step - loss: 0.4003 - accuracy: 0.8189 - val_loss: 0.3377 - val_accuracy: 0.8438
+    Epoch 47/74
+    52/52 [==============================] - 158s 3s/step - loss: 0.4067 - accuracy: 0.8151 - val_loss: 0.4413 - val_accuracy: 0.8083
+    Epoch 48/74
+    52/52 [==============================] - 158s 3s/step - loss: 0.4096 - accuracy: 0.8121 - val_loss: 0.4229 - val_accuracy: 0.8146
+    Epoch 49/74
+    52/52 [==============================] - 158s 3s/step - loss: 0.3996 - accuracy: 0.8171 - val_loss: 0.3249 - val_accuracy: 0.8042
+    Epoch 50/74
+    52/52 [==============================] - 158s 3s/step - loss: 0.4036 - accuracy: 0.8175 - val_loss: 0.4643 - val_accuracy: 0.7854
+    Epoch 51/74
+    52/52 [==============================] - 158s 3s/step - loss: 0.4078 - accuracy: 0.8117 - val_loss: 0.3189 - val_accuracy: 0.8250
+    Epoch 52/74
+    52/52 [==============================] - 156s 3s/step - loss: 0.3830 - accuracy: 0.8312 - val_loss: 0.3968 - val_accuracy: 0.8042
+    Epoch 53/74
+    52/52 [==============================] - 157s 3s/step - loss: 0.3639 - accuracy: 0.8438 - val_loss: 0.2912 - val_accuracy: 0.8316
+    Epoch 54/74
+    52/52 [==============================] - 158s 3s/step - loss: 0.3860 - accuracy: 0.8345 - val_loss: 0.3729 - val_accuracy: 0.8313
+    Epoch 55/74
+    52/52 [==============================] - 156s 3s/step - loss: 0.3664 - accuracy: 0.8353 - val_loss: 0.3425 - val_accuracy: 0.8667
+    Epoch 56/74
+    52/52 [==============================] - 158s 3s/step - loss: 0.3696 - accuracy: 0.8317 - val_loss: 0.3962 - val_accuracy: 0.8562
+    Epoch 57/74
+    52/52 [==============================] - 156s 3s/step - loss: 0.3452 - accuracy: 0.8460 - val_loss: 0.4365 - val_accuracy: 0.8083
+    Epoch 58/74
+    52/52 [==============================] - 158s 3s/step - loss: 0.3303 - accuracy: 0.8566 - val_loss: 0.3778 - val_accuracy: 0.8583
+    Epoch 59/74
+    52/52 [==============================] - 158s 3s/step - loss: 0.3503 - accuracy: 0.8488 - val_loss: 0.3396 - val_accuracy: 0.8708
+    Epoch 60/74
+    52/52 [==============================] - 158s 3s/step - loss: 0.3329 - accuracy: 0.8512 - val_loss: 0.3482 - val_accuracy: 0.8583
+    Epoch 61/74
+    52/52 [==============================] - 158s 3s/step - loss: 0.3498 - accuracy: 0.8387 - val_loss: 0.3779 - val_accuracy: 0.7937
+    Epoch 62/74
+    52/52 [==============================] - 156s 3s/step - loss: 0.3029 - accuracy: 0.8728 - val_loss: 0.3239 - val_accuracy: 0.8625
+    Epoch 63/74
+    52/52 [==============================] - 158s 3s/step - loss: 0.3110 - accuracy: 0.8670 - val_loss: 0.5435 - val_accuracy: 0.8250
+    Epoch 64/74
+    52/52 [==============================] - 159s 3s/step - loss: 0.2948 - accuracy: 0.8742 - val_loss: 0.3109 - val_accuracy: 0.8699
+    Epoch 65/74
+    52/52 [==============================] - 158s 3s/step - loss: 0.3042 - accuracy: 0.8694 - val_loss: 0.2760 - val_accuracy: 0.8583
+    Epoch 66/74
+    52/52 [==============================] - 156s 3s/step - loss: 0.2913 - accuracy: 0.8759 - val_loss: 0.1814 - val_accuracy: 0.9104
+    Epoch 67/74
+    52/52 [==============================] - 158s 3s/step - loss: 0.2595 - accuracy: 0.8972 - val_loss: 0.2329 - val_accuracy: 0.9167
+    Epoch 68/74
+    52/52 [==============================] - 158s 3s/step - loss: 0.2751 - accuracy: 0.8844 - val_loss: 0.2833 - val_accuracy: 0.8417
+    Epoch 69/74
+    52/52 [==============================] - 158s 3s/step - loss: 0.2447 - accuracy: 0.9004 - val_loss: 0.1595 - val_accuracy: 0.8958
+    Epoch 70/74
+    52/52 [==============================] - 158s 3s/step - loss: 0.2508 - accuracy: 0.8960 - val_loss: 0.3050 - val_accuracy: 0.8687
+    Epoch 71/74
+    52/52 [==============================] - 158s 3s/step - loss: 0.2319 - accuracy: 0.9050 - val_loss: 0.2544 - val_accuracy: 0.8750
+    Epoch 72/74
+    52/52 [==============================] - 156s 3s/step - loss: 0.2461 - accuracy: 0.8990 - val_loss: 0.1848 - val_accuracy: 0.9229
+    Epoch 73/74
+    52/52 [==============================] - 158s 3s/step - loss: 0.2133 - accuracy: 0.9129 - val_loss: 0.1849 - val_accuracy: 0.9312
+    Epoch 74/74
+    52/52 [==============================] - 158s 3s/step - loss: 0.2233 - accuracy: 0.9071 - val_loss: 0.1459 - val_accuracy: 0.9167
+    '''
+
+
+    return output_ImClass, output_alexnet, output_vgg
 
    
 
