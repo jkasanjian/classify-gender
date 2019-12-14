@@ -23,7 +23,7 @@ validationDir = "data/validation/"
 num_train_samples = 5000
 num_val_samples = 500
 epochs = 70
-batch_size = 64
+batch_size = 96
 
 def loadDataSet():
     img_width, img_height = 224, 224
@@ -151,7 +151,7 @@ def test():
     testSet = test_datagen.flow_from_directory(
         'data/test/',
         target_size = (224,224),    
-        batch_size = 64,
+        batch_size = 96,
         class_mode = "categorical"
         )
     print('Data generated')
