@@ -120,6 +120,8 @@ parallel_model = multi_gpu_model(model, gpus=8)
 
 # (4) Compile 
 print("[Compiling Started]")
+#Compiling model
+parallel_model.compile(loss='categorical_crossentropy', optimizer='adam',metrics=['accuracy'])
 print("[Compiling Complete]")
 model.summary()
 
