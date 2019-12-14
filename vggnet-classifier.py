@@ -139,24 +139,29 @@ def main(): # load the model
     
 
 
-
-
-test_datagen = ImageDataGenerator( 
-    rescale = .1/255, 
-    shear_range = .2,
-    zoom_range = 0.2, 
-    horizontal_flip = True
-)
-
-testSet = test_datagen.flow_from_directory(
-    'data/test/',
-    target_size = (224,244),    
-    batch_size = 96,
-    class_mode = "categorical"
+def test():
+    print('Generating data')
+    test_datagen = ImageDataGenerator( 
+        rescale = .1/255, 
+        shear_range = .2,
+        zoom_range = 0.2, 
+        horizontal_flip = True
     )
 
+    testSet = test_datagen.flow_from_directory(
+        'data/test/',
+        target_size = (224,224),    
+        batch_size = 64,
+        class_mode = "categorical"
+        )
+    print('Data generated')
 
-parallel_model = tf.keras.models.load_model('VGGtrainedModel.h5')
+    print('Loading model...')
+    model = keras.models.load_model('VGGtrainedModel.h5')
+    print('Model loaded')
 
-model.evaluate(testSet)   
- 
+    print('Testing')
+    score = model.evaluate(testSet)
+    print(model.metrics_names, score)
+    print('Done testing')
+
