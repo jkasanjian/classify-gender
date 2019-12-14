@@ -126,5 +126,32 @@ def main():
         validation_data = validData,
     )
     print("Training Completed~~~~~~~~~~")
-    model.save("trainedModel.h5")
-main()
+    model.save("AlexnetModel.h5")
+
+    
+def test():
+    print('Generating data')
+    test_datagen = ImageDataGenerator( 
+        rescale = .1/255, 
+        shear_range = .2,
+        zoom_range = 0.2, 
+        horizontal_flip = True
+    )
+
+    testSet = test_datagen.flow_from_directory(
+        'data/test/',
+        target_size = (224,224),    
+        batch_size = 256,
+        class_mode = "categorical"
+        )
+    print('Data generated')
+
+    print('Loading model...')
+    model = keras.models.load_model('AlexnetModel.h5')
+    print('Model loaded')
+
+    print('Testing')
+    score = model.evaluate(testSet)
+    print(model.metrics_names, score)
+    print('Done testing')
+
