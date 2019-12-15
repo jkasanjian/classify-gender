@@ -39,10 +39,10 @@ to update the weights. Moreover, we trained the model with varying numbers of it
 and varying learning rates (0.1, 0.2, 0.5).   
    
 #### Results
-Using Gradient Descent: 
-Train Accuracy: 0.9380142857
-Test Accuracy: 0.9382571429   
-   
-Using SGD: 
-Train Accuracy: 0.7939642857
+Using Gradient Descent:   
+Train Accuracy: 0.9380142857   
+Test Accuracy: 0.9382571429    
+    
+Using SGD:  
+Train Accuracy: 0.7939642857    
 Test Accuracy: 0.7903928571   
