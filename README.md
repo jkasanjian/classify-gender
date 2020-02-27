@@ -1,5 +1,5 @@
 # Classifying gender using various machine learning models
-Machine Learning term project by Jonathan Bazan, Joshua Kasanjian, Sadiq Sarwar
+Machine Learning term project by Jonathan A. Bazan, Joshua Kasanjian, Sadiq Sarwar
 
 ## Data
 We obtained our data from this Kaggle Project:   
